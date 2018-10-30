@@ -1,0 +1,6 @@
+archivesBaseName = 'sapanywhere-web'
+
+dependencies {  
+    compile project(":sapanywhere-api")
+	
+}  

@@ -37,4 +37,9 @@ gradle-app.setting
 /nbdist/
 /.nb-gradle/
 
+### Eclipse ###
+/bin/
+*/bin/
+
+
 

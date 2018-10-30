@@ -1,1 +1,10 @@
 rootProject.name = 'sapanywhere'
+
+include 'sapanywhere-api', 'sapanywhere-web'
+
+
+
+
+
+
+

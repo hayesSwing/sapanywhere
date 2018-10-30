@@ -16,16 +16,64 @@ apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
 
 group = 'com.xiangzi'
-version = '0.0.1-SNAPSHOT'
+version = '1.0.0-SNAPSHOT'
+
 sourceCompatibility = 1.8
+targetCompatibility = 1.8
 
 repositories {
 	mavenCentral()
 }
 
+subprojects { 
+    apply plugin: 'java'
+    apply plugin: 'eclipse'
+    apply plugin: 'idea'
+	
+    // java编译的时候缺省状态下会因为中文字符而失败
+    [compileJava,compileTestJava,javadoc]*.options*.encoding = 'UTF-8'
+    
+    //定义版本号
+    ext {  
+        
+    } 
 
-dependencies {
-	implementation('org.springframework.boot:spring-boot-starter')
-	runtimeOnly('org.springframework.boot:spring-boot-devtools')
-	testImplementation('org.springframework.boot:spring-boot-starter-test')
+    repositories {
+        mavenCentral()
+    }
+
+    jar {
+        manifest {
+            attributes("Implementation-Title": "Gradle")
+        }
+    }
+
+    configurations {
+    }
+
+    dependencies {
+		
+        compile (
+        	"org.springframework.boot:spring-boot-starter-web:${springBootVersion}"
+        )
+		
+        // 依赖maven中不存在的jar
+        ext.jarTree = fileTree(dir: 'libs', include: '**/*.jar')
+        ext.rootProjectLibs = new File(rootProject.rootDir, 'libs').getAbsolutePath()
+        ext.jarTree += fileTree(dir: rootProjectLibs, include: '**/*.jar')
+
+        compile jarTree
+
+        // 测试依赖
+        testCompile (
+        	"org.springframework.boot:spring-boot-starter-test:${springBootVersion}"
+        ) 
+    }
+
+    // 显示当前项目下所有用于 compile 的 jar.
+    task listJars(description: 'Display all compile jars.') << {
+        configurations.compile.each { File file -> println file.name }
+    }
 }
+
+
