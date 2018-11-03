@@ -16,7 +16,7 @@ public class CompanyApiTest extends BaseAnywhereTest {
 		companyApi = new CompanyApi();
 	}
 
-//	@Ignore
+	@Ignore
 	@Test
 	public void get() {
 		Company company = companyApi.get(accessToken.getValue());
