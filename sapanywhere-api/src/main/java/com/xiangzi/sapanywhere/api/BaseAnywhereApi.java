@@ -161,9 +161,32 @@ public abstract class BaseAnywhereApi<T> extends BaseApi {
 
 		HttpResponse httpResponse = sendGet(url);
 		String content = httpResponse.getContent();
-		logger.error("content:" + content);
+		logger.debug("content:" + content);
 
 		return 200 == httpResponse.getStatus() ? JSONUtil.parseObject(content, new TypeReference<Map<String, Object>>() {
+		}) : null;
+	}
+
+	/**
+	 * 返回字段的有效值的列表.<br/>
+	 * Return a list of valid values of the field.<br/>
+	 * 
+	 * @param accessToken
+	 * @param fieldName
+	 *            The field name whose valid values to return.
+	 * @return
+	 */
+	public List<String> validValues(String accessToken, String fieldName) {
+		String url = apiBaseUrl + getObjectUrl() + "/validValues?access_token=" + accessToken;
+
+		Map<String, Object> paramMap = new HashMap<String, Object>(20);
+		paramMap.put("fieldName", fieldName);
+
+		HttpResponse httpResponse = sendGet(url, paramMap);
+		String content = httpResponse.getContent();
+		logger.debug("content:" + content);
+
+		return 200 == httpResponse.getStatus() ? JSONUtil.parseObject(content, new TypeReference<List<String>>() {
 		}) : null;
 	}
 
