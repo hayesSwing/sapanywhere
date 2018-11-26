@@ -14,7 +14,6 @@ import com.xiangzi.sapanywhere.condition.Filter;
 import com.xiangzi.sapanywhere.condition.Select;
 import com.xiangzi.util.JSONUtil;
 
-
 public class UserApiTest extends BaseAnywhereTest {
 
 	private UserApi userApi;
@@ -55,12 +54,12 @@ public class UserApiTest extends BaseAnywhereTest {
 		}
 
 	}
-	
+
 	@Ignore
 	@Test
 	public void me() {
 		User currentUser = userApi.me(accessToken.getValue());
 		logger.info("currentUser:" + JSONUtil.toJSONString(currentUser));
 	}
-	
+
 }
