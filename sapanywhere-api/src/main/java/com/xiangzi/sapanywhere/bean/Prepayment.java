@@ -5,4 +5,6 @@ package com.xiangzi.sapanywhere.bean;
  */
 public class Prepayment extends BaseBean {
 	
+	
+	
 }
